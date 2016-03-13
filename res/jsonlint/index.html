@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="/style/style.css">
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h1>JSON Lint</h1>
+			<p>Just enter the input JSON and hit the button</p>
+		</div>
+		<div class="form-horizontal">
+			<div class="form-group">
+				<textarea class="form-control col-xs-12" rows="12" id="json"><pre></pre></textarea>
+			</div>
+			<div class="form-group">
+				<button class="form-control btn btn-primary" id="validate" name="validate" value="1">Validate</button>
+			</div>
+			<div class="form-group">
+				<p class="msgbox form-control-static hidden" id="message"></p>
+			</div>
+			<div class="form-group">
+				<pre class="form-control-static hidden" id="output">
+				</pre>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		$( function() {
+			$("#validate").click( function() {
+				$.ajax({
+					'method': 'POST',
+					'url': '/jsonlint/validate',
+					'data': $('#json').val(),
+					'success': function(data) {
+						if(data.success) {
+							$('#message').removeClass('hidden bg-danger').addClass('bg-success').html('Valid JSON');
+							$('#output').removeClass('hidden').text(data.result);
+						} else {
+							$('#message').removeClass('hidden bg-success').addClass('bg-danger').html(data.msg);
+							$('#output').addClass('hidden');
+							// TODO: show the place where the error occurs
+						}
+						console.log(data);
+					},
+					'contentType': 'text/plain',
+				});
+			});
+		});
+	</script>
+</body>
+</html>

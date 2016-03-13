@@ -1,0 +1,18 @@
+Bundle-Version: 1.0.0.${buildid}
+
+Private-Package: com.marcdejonge.web.blog
+Include-Resource: res, \
+	web/style=../com.marcdejonge.theme/stylesheets/, \
+	web/js=../com.marcdejonge.theme/bower_components/jquery/dist/
+
+-buildpath: \
+	com.marcdejonge.codec;version=project,\
+	com.marcdejonge.web.core;version=project,\
+	osgi.core;version=latest,\
+	osgi.cmpn;version=latest,\
+	osgi.annotation;version=latest,\
+	slf4j.api;version=latest,\
+	com.google.guava;version=latest
+
+-dsannotations: *
+-metatypeannotations: *
